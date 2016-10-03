@@ -1,0 +1,21 @@
+{
+  "name": "mhidalgo/static-version",
+  "type": "magento-module",
+  "description": "Basic module for add version number to static content",
+  "license": "proprietary",
+  "require": {
+    "magento-hackathon/magento-composer-installer": "*"
+  },
+  "extra": {
+    "map": [
+      [
+        "app/code/community/Mhidalgo/StaticVersion",
+        "app/code/community/Mhidalgo/StaticVersion"
+      ],
+      [
+        "app/etc/modules/Mhidalgo_StaticVersion.xml",
+        "app/etc/modules/Mhidalgo_StaticVersion.xml"
+      ]
+    ]
+  }
+}
