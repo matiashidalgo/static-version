@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <sections>
+        <dev>
+            <groups>
+                <mhidalgo_staticversion module="mhidalgo_staticversion" translate="label">
+                    <label>Static Version</label>
+                    <sort_order>1000</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enable module="mhidalgo_staticversion" translate="label comment">
+                            <label>Enable</label>
+                            <sort_order>10</sort_order>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable>
+                        <version_track_type module="mhidalgo_staticversion" translate="label comment">
+                            <label>Type of version Track</label>
+                            <sort_order>15</sort_order>
+                            <frontend_type>select</frontend_type>
+                            <source_model>mhidalgo_staticversion/system_config_source_typeVersion</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable>1</enable>
+                            </depends>
+                        </version_track_type>
+                        <version module="mhidalgo_staticversion" translate="label comment">
+                            <label>Version</label>
+                            <sort_order>20</sort_order>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable>1</enable>
+                            </depends>
+                        </version>
+                        <version_querystring_param module="mhidalgo_staticversion" translate="label comment">
+                            <label>Version Query String param</label>
+                            <sort_order>25</sort_order>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable>1</enable>
+                            </depends>
+                        </version_querystring_param>
+                        <generate_hash_for_querystring module="mhidalgo_staticversion" translate="label comment">
+                            <label>Enable</label>
+                            <sort_order>28</sort_order>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable>1</enable>
+                            </depends>
+                        </generate_hash_for_querystring>
+                        <apply_for_merged module="mhidalgo_staticversion" translate="label comment">
+                            <label>Apply for merged js/css</label>
+                            <sort_order>30</sort_order>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Since merged content used to have hashed name and it depends on content, looks like have no sense to add another version to file</comment>
+                            <depends>
+                                <enable>1</enable>
+                            </depends>
+                        </apply_for_merged>
+                    </fields>
+                </mhidalgo_staticversion>
+            </groups>
+        </dev>
+    </sections>
+</config>

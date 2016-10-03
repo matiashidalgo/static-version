@@ -6,5 +6,34 @@
         </Mhidalgo_StaticVersion>
     </modules>
     <global>
+        <blocks>
+            <page>
+                <rewrite>
+                    <html_head>Mhidalgo_StaticVersion_Block_Html_Head</html_head>
+                </rewrite>
+            </page>
+        </blocks>
+        <helpers>
+            <mhidalgo_staticversion>
+                <class>Mhidalgo_StaticVersion_Helper</class>
+            </mhidalgo_staticversion>
+        </helpers>
+        <models>
+            <mhidalgo_staticversion>
+                <class>Mhidalgo_StaticVersion_Model</class>
+            </mhidalgo_staticversion>
+        </models>
     </global>
+    <default>
+        <dev>
+            <mhidalgo_staticversion>
+                <enable>0</enable>
+                <version_track_type>2</version_track_type>
+                <version>123456</version>
+                <version_querystring_param>v</version_querystring_param>
+                <generate_hash_for_querystring>1</generate_hash_for_querystring>
+                <apply_for_merged>0</apply_for_merged>
+            </mhidalgo_staticversion>
+        </dev>
+    </default>
 </config>
