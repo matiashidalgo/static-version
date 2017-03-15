@@ -2,10 +2,10 @@
 /**
  * Block for override native Magento getCssJsHtml functionality
  *
- * @category  Project
- * @package   Module_Name
- * @author    Matias Hidalgo <matias.hidalgo@redboxdigital.com>
- * @copyright Copyright (c) 2016 Redbox Digital (http://www.redboxdigital.com)
+ * @category  StaticVersion
+ * @package   Mhidalgo_StaticVersion
+ * @author    Matias Hidalgo <me@mhidalgo.tk>
+ * @copyright Copyright (c) 2017 Matias Hidalgo (http://www.mhidalgo.tk)
  */
 
 class Mhidalgo_StaticVersion_Block_Html_Head

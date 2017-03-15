@@ -28,10 +28,11 @@
         <dev>
             <mhidalgo_staticversion>
                 <enable>0</enable>
-                <version_track_type>2</version_track_type>
+                <version_track_type>1</version_track_type>
+                <version_source>1</version_source>
                 <version>123456</version>
                 <version_querystring_param>v</version_querystring_param>
-                <generate_hash_for_querystring>1</generate_hash_for_querystring>
+                <generate_hash>1</generate_hash>
                 <apply_for_merged>0</apply_for_merged>
             </mhidalgo_staticversion>
         </dev>

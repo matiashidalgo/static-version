@@ -15,6 +15,14 @@
       [
         "app/etc/modules/Mhidalgo_StaticVersion.xml",
         "app/etc/modules/Mhidalgo_StaticVersion.xml"
+      ],
+      [
+        "js/.htaccess",
+        "js/.htaccess"
+      ],
+      [
+        "skin/.htaccess",
+        "skin/.htaccess"
       ]
     ]
   }

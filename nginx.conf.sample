@@ -1,0 +1,43 @@
+You must add this to your nginx server setup:
+
+    location /js/ {
+        # Remove signature of the static files that is used to overcome the browser cache
+        location ~ ^/js/version {
+            rewrite ^/js/(version\d*/)?(.*)$ /js/$2 last;
+        }
+        add_header X-Frame-Options "SAMEORIGIN";
+    }
+    location /skin/ {
+        # Remove signature of the static files that is used to overcome the browser cache
+        location ~ ^/skin/version {
+            rewrite ^/skin/(version\d*/)?(.*)$ /skin/$2 last;
+        }
+        add_header X-Frame-Options "SAMEORIGIN";
+    }
+
+
+Full Example:
+server {
+    listen 80;
+    server_name www.magentoinstance.com;
+    root /path/to/your/magento/instance;
+
+    ...
+
+    location /js/ {
+        # Remove signature of the static files that is used to overcome the browser cache
+        location ~ ^/js/version {
+            rewrite ^/js/(version\d*/)?(.*)$ /js/$2 last;
+        }
+        add_header X-Frame-Options "SAMEORIGIN";
+    }
+    location /skin/ {
+        # Remove signature of the static files that is used to overcome the browser cache
+        location ~ ^/skin/version {
+            rewrite ^/skin/(version\d*/)?(.*)$ /skin/$2 last;
+        }
+        add_header X-Frame-Options "SAMEORIGIN";
+    }
+
+    ...
+}
