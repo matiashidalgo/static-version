@@ -57,3 +57,30 @@ modman clone https://github.com/matiashidalgo/static-version.git
   * [Download the latest release](https://github.com/matiashidalgo/static-version/releases/latest)
   * Unzip
   * Copy `app`,`js` and `skin` directory into Magento
+  
+## Configuration
+Once the module is installed you must set it up by go to System -> Configuration -> Developer and set Enable to Yes.
+
+Then, you will be able to setup the module in order to use it. By default it comes ready for use Query String version
+with an static version number which will be hashed and "v" will be the query string.
+
+You will find most of the configurations with comments explaining his own functionality.
+
+### File Rename Configuration
+In order to use file rename version type you must check which Web Server are you using, 
+the module support Apache and Nginx, where you only needs to enable Mod Rewrite Module 
+for Apache, and for Nginx case you must setup your host configuration in order to manage
+ automatic rewrites for version url section, for this you should follow nginx.conf.sample file
+ included with the module.
+ 
+### File Rename Testing
+Before to set File Rename as version type and after follow File Rename Configuration step you can test
+file rename functionality doing this:
+
+1. Get the url to some JS which is part of core Magento, for ex. Prototype:
+http://BASE_URL/js/prototype/prototype.js
+2. Add an string "version123456" after "js" and try it on your browser
+http://BASE_URL/js/version123456/prototype/prototype.js
+3. If you get the same js file if you get it by common url, it's working fine.
+ 
+You can also do same flow with some url from skin area in order to test both areas.
