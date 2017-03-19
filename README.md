@@ -9,18 +9,18 @@ with CDN configurations and also has the functionality of inject version
 into url path, in the same way Magento 2 do it as from version 2.1.3.
 
 ## Functionality
-The module provide 4 types of versioning:
-1. Static Query Param Version: This is the most basic and simple,
-just add a query param to the url with desired content.
-2. Dynamic Query Param Version: This is more sophisticate and smart
-it detects the last change date of each file and use it as param content, 
-then you always will get the last version on frontend.
-3. Static Url Rename Version: This powerful and simple functionality 
-provides a way to choose your desired version and inject it into the url 
-it self, in the same way Magento 2 do it.
-4. Dynamic Url Rename Version: This not just powerful but smart functionality
-will give you the latest content by generate a new url injecting the last 
-update time from the file.
+The module provide 2 types of versioning:
+1. Query Param Version: This is the most basic and simple,
+                        just add a query param to the url with desired content.
+2. Url Rename Version: This powerful functionality provides a way to inject a 
+version into the url it self, in the same way Magento 2 do it.
+
+Also you can choose source of version with this 2 options:
+1. Static Version: This is as simple and manual as possible, you can define a version number
+for all your files, this allow you to force flush all the content version.
+2. Dynamic Version: This is more sophisticate and smart
+                    it detects the last change date of each file and use it as version number, 
+                    then you always will get the last version on frontend.
 
 ## Extras
 Static Version Module also gives you the posibility to choose to get a hash
@@ -30,7 +30,7 @@ version string.
 
 ## Installation
 ### Composer
-Add the requirement `mhidalgo/static-version` and repository `git@bitbucket.org:matiashidalgo/static-version.git`
+Add the requirement `mhidalgo/static-version` and repository `git@github.com:matiashidalgo/static-version.git`
 ```json
 {
     "require": {
@@ -41,7 +41,7 @@ Add the requirement `mhidalgo/static-version` and repository `git@bitbucket.org:
         ...
         {
             "type": "vcs",
-            "url": "git@bitbucket.org:matiashidalgo/static-version.git"
+            "url": "git@github.com:matiashidalgo/static-version.git"
         }
         ...
     ]
@@ -50,10 +50,10 @@ Add the requirement `mhidalgo/static-version` and repository `git@bitbucket.org:
 
 ### Modman
 ```bash
-modman clone https://bitbucket.org/matiashidalgo/static-version.git
+modman clone https://github.com/matiashidalgo/static-version.git
 ```
 
 ### Install manually
-  * [Download the latest release](https://bitbucket.org/matiashidalgo/static-version)
+  * [Download the latest release](https://github.com/matiashidalgo/static-version/releases/latest)
   * Unzip
   * Copy `app`,`js` and `skin` directory into Magento
