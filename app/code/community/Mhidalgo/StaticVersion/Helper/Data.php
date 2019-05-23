@@ -46,17 +46,25 @@ class Mhidalgo_StaticVersion_Helper_Data
                 /** Apply version track based on Type */
                 switch ($this->getVersionTrackType()) {
                     case Mhidalgo_StaticVersion_Model_System_Config_Source_TypeVersion::QUERY_STRING:
-                        $url = $this->getQueryStringUrl($url,$versionNumber);
+                        $url = $this->getQueryStringUrl($url, $versionNumber);
                         break;
                     case Mhidalgo_StaticVersion_Model_System_Config_Source_TypeVersion::FILE_RENAME:
-                        $url = $this->getRenamedUrl($url,$versionNumber);
+                        $url = $this->getRenamedUrl($url, $versionNumber);
                         break;
                     case Mhidalgo_StaticVersion_Model_System_Config_Source_TypeVersion::CUSTOM:
                     default:
                         $transportObject = new Varien_Object(
-                            array('url' => $url, 'version_number' => $versionNumber, 'merged' => $merged, 'helper' => $this)
+                            array(
+                                'url' => $url,
+                                'version_number' => $versionNumber,
+                                'merged' => $merged,
+                                'helper' => $this
+                            )
                         );
-                        Mage::dispatchEvent('mhidalgo_staticversion_static_versioned_custom', array('transport' => $transportObject));
+                        Mage::dispatchEvent(
+                            'mhidalgo_staticversion_static_versioned_custom',
+                            array('transport' => $transportObject)
+                        );
                         $url = $transportObject->getUrl();
                         break;
                 }
@@ -166,21 +174,38 @@ class Mhidalgo_StaticVersion_Helper_Data
      */
     protected function _getLastModTimeFromUrl($url)
     {
-        $base_dir = Mage::getBaseDir();
-        $base_url = Mage::getBaseUrl();
+        $baseDir = Mage::getBaseDir();
+        $baseUrl = Mage::getBaseUrl();
         /** Support for CDN and for store code sub path */
         if (strpos($url, Mage::getBaseUrl()) === 0) {
             # pass
+        } else if ($this->_isMediaUrl($url)) {
+            $baseDir = Mage::getBaseDir('media');
+            $baseUrl = Mage::getBaseUrl('media');
         } else if ($this->_isSkinUrl($url)) {
-            $base_dir = Mage::getBaseDir('skin');
-            $base_url = Mage::getBaseUrl('skin');
+            $baseDir = Mage::getBaseDir('skin');
+            $baseUrl = Mage::getBaseUrl('skin');
         } else if ($this->_isJsUrl($url)) {
-            $base_dir = Mage::getBaseDir() . DS . 'js';
-            $base_url = Mage::getBaseUrl('js');
+            $baseDir = Mage::getBaseDir() . DS . 'js';
+            $baseUrl = Mage::getBaseUrl('js');
         }
-        $file = $base_dir . DS . trim(str_replace($base_url, '', $url), DS);
+
+        $file = $baseDir . DS . trim(str_replace($baseUrl, '', $url), DS);
 
         return file_exists($file) ? filemtime($file) : $this->getStaticVersion();
+    }
+
+    /**
+     * Function to check if an url belongs to Media folder
+     *
+     * @param $url
+     *
+     * @author Matias Hidalgo <me@mhidalgo.tk>
+     * @return bool
+     */
+    protected function _isMediaUrl($url)
+    {
+        return strpos($url, Mage::getBaseUrl('media')) === 0;
     }
 
     /**
@@ -221,7 +246,9 @@ class Mhidalgo_StaticVersion_Helper_Data
     public function getRenamedUrl($url,$version)
     {
         $base_url = Mage::getBaseUrl();
-        if ($this->_isSkinUrl($url)) {
+        if ($this->_isMediaUrl($url)) {
+            $base_url = Mage::getBaseUrl('media');
+        } else if ($this->_isSkinUrl($url)) {
             $base_url = Mage::getBaseUrl('skin');
         } else if ($this->_isJsUrl($url)) {
             $base_url = Mage::getBaseUrl('js');

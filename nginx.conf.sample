@@ -1,5 +1,12 @@
 You must add this to your nginx server setup:
 
+    location /media/ {
+        # Remove signature of the static files that is used to overcome the browser cache
+        location ~ ^/media/version {
+            rewrite ^/media/(version\d*/)?(.*)$ /media/$2 last;
+        }
+        add_header X-Frame-Options "SAMEORIGIN";
+    }
     location /js/ {
         # Remove signature of the static files that is used to overcome the browser cache
         location ~ ^/js/version {
@@ -24,6 +31,13 @@ server {
 
     ...
 
+    location /media/ {
+        # Remove signature of the static files that is used to overcome the browser cache
+        location ~ ^/media/version {
+            rewrite ^/media/(version\d*/)?(.*)$ /media/$2 last;
+        }
+        add_header X-Frame-Options "SAMEORIGIN";
+    }
     location /js/ {
         # Remove signature of the static files that is used to overcome the browser cache
         location ~ ^/js/version {

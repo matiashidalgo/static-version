@@ -24,9 +24,12 @@ class Mhidalgo_StaticVersion_Block_Html_Head
      * @param callback $mergeCallback
      * @return string
      */
-    protected function &_prepareStaticAndSkinElements($format, array $staticItems, array $skinItems,
-        $mergeCallback = null)
-    {
+    protected function &_prepareStaticAndSkinElements(
+        $format,
+        array $staticItems,
+        array $skinItems,
+        $mergeCallback = null
+    ) {
         $designPackage = Mage::getDesign();
         $baseJsUrl = Mage::getBaseUrl('js');
         $items = array();
@@ -56,19 +59,21 @@ class Mhidalgo_StaticVersion_Block_Html_Head
             if ($mergeCallback) {
                 $mergedUrl = call_user_func($mergeCallback, $rows);
             }
+
             // render elements
             $params = trim($params);
             $params = $params ? ' ' . $params : '';
             /** @var Mhidalgo_StaticVersion_Helper_Data $staticVersionHelper */
             $staticVersionHelper = Mage::helper('mhidalgo_staticversion');
             if ($mergedUrl) {
-                $html .= sprintf($format, $staticVersionHelper->getStaticVersioned($mergedUrl,true), $params);
+                $html .= sprintf($format, $staticVersionHelper->getStaticVersioned($mergedUrl, true), $params);
             } else {
                 foreach ($rows as $src) {
                     $html .= sprintf($format, $staticVersionHelper->getStaticVersioned($src), $params);
                 }
             }
         }
+
         return $html;
     }
 }

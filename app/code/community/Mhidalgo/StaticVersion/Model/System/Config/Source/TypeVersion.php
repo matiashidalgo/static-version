@@ -23,9 +23,9 @@ class Mhidalgo_StaticVersion_Model_System_Config_Source_TypeVersion
     public function toOptionArray()
     {
         return array(
-            array('value' => self::QUERY_STRING, 'label'=>Mage::helper('mhidalgo_staticversion')->__('Query String')),
-            array('value' => self::FILE_RENAME, 'label'=>Mage::helper('mhidalgo_staticversion')->__('File Rename')),
-            array('value' => self::CUSTOM, 'label'=>Mage::helper('mhidalgo_staticversion')->__('Custom'))
+            array('value' => self::QUERY_STRING, 'label'=> Mage::helper('mhidalgo_staticversion')->__('Query String')),
+            array('value' => self::FILE_RENAME, 'label'=> Mage::helper('mhidalgo_staticversion')->__('File Rename')),
+            array('value' => self::CUSTOM, 'label'=> Mage::helper('mhidalgo_staticversion')->__('Custom'))
         );
     }
 

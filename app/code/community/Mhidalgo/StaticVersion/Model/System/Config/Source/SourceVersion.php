@@ -22,8 +22,8 @@ class Mhidalgo_StaticVersion_Model_System_Config_Source_SourceVersion
     public function toOptionArray()
     {
         return array(
-            array('value' => self::STATICAL, 'label'=>Mage::helper('mhidalgo_staticversion')->__('Static')),
-            array('value' => self::DYNAMIC, 'label'=>Mage::helper('mhidalgo_staticversion')->__('Dynamic'))
+            array('value' => self::STATICAL, 'label'=> Mage::helper('mhidalgo_staticversion')->__('Static')),
+            array('value' => self::DYNAMIC, 'label'=> Mage::helper('mhidalgo_staticversion')->__('Dynamic'))
         );
     }
 
