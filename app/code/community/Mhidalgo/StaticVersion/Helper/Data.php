@@ -174,21 +174,8 @@ class Mhidalgo_StaticVersion_Helper_Data
      */
     protected function _getLastModTimeFromUrl($url)
     {
-        $baseDir = Mage::getBaseDir();
-        $baseUrl = Mage::getBaseUrl();
-        /** Support for CDN and for store code sub path */
-        if (strpos($url, Mage::getBaseUrl()) === 0) {
-            # pass
-        } else if ($this->_isMediaUrl($url)) {
-            $baseDir = Mage::getBaseDir('media');
-            $baseUrl = Mage::getBaseUrl('media');
-        } else if ($this->_isSkinUrl($url)) {
-            $baseDir = Mage::getBaseDir('skin');
-            $baseUrl = Mage::getBaseUrl('skin');
-        } else if ($this->_isJsUrl($url)) {
-            $baseDir = Mage::getBaseDir() . DS . 'js';
-            $baseUrl = Mage::getBaseUrl('js');
-        }
+        $baseDir = $this->getBaseDir($url);
+        $baseUrl = $this->getBaseUrl($url);
 
         $file = $baseDir . DS . trim(str_replace($baseUrl, '', $url), DS);
 
@@ -245,15 +232,8 @@ class Mhidalgo_StaticVersion_Helper_Data
      */
     public function getRenamedUrl($url,$version)
     {
-        $base_url = Mage::getBaseUrl();
-        if ($this->_isMediaUrl($url)) {
-            $base_url = Mage::getBaseUrl('media');
-        } else if ($this->_isSkinUrl($url)) {
-            $base_url = Mage::getBaseUrl('skin');
-        } else if ($this->_isJsUrl($url)) {
-            $base_url = Mage::getBaseUrl('js');
-        }
-        $newUrl = trim(str_replace($base_url, $base_url . 'version'.$version . DS, $url), DS);
+        $baseUrl = $this->getBaseUrl($url);
+        $newUrl = trim(str_replace($baseUrl, $baseUrl . 'version'.$version . DS, $url), DS);
         return $newUrl;
     }
 
@@ -268,12 +248,60 @@ class Mhidalgo_StaticVersion_Helper_Data
      */
     public function getQueryStringUrl($url,$version)
     {
-        return Mage::getUrl('',
-            array(
-                '_direct' => str_replace(Mage::getBaseUrl(),'',$url),
-                '_query' => array($this->getVersionQueryStringParam() => $version)
-            )
+        $parsedUrl = parse_url($url);
+
+        $parsedUrl['query'] =  array_merge(
+            explode('&', (isset($parsedUrl['query'])? $parsedUrl['query']: '')),
+            array($this->getVersionQueryStringParam() . '=' . $version)
         );
+
+        return $this->buildUrl($parsedUrl);
+    }
+
+    /**
+     * @param $url
+     *
+     * @author Matias Hidalgo <matias.hidalgo@redboxdigital.com>
+     * @return string
+     */
+    public function getBaseUrl($url)
+    {
+        if ($this->_isMediaUrl($url)) {
+            return Mage::getBaseUrl('media');
+        }
+
+        if ($this->_isSkinUrl($url)) {
+            return Mage::getBaseUrl('skin');
+        }
+
+        if ($this->_isJsUrl($url)) {
+            return Mage::getBaseUrl('js');
+        }
+
+        return Mage::getBaseUrl();
+    }
+
+    /**
+     * @param $url
+     *
+     * @author Matias Hidalgo <matias.hidalgo@redboxdigital.com>
+     * @return string
+     */
+    public function getBaseDir($url)
+    {
+        if ($this->_isMediaUrl($url)) {
+            return Mage::getBaseDir('media');
+        }
+
+        if ($this->_isSkinUrl($url)) {
+            return Mage::getBaseDir('skin');
+        }
+
+        if ($this->_isJsUrl($url)) {
+            return Mage::getBaseDir() . DS . 'js';
+        }
+
+        return Mage::getBaseUrl();
     }
 
     /**
@@ -289,6 +317,45 @@ class Mhidalgo_StaticVersion_Helper_Data
         if ($this->isHashingRequired()) {
             $version = crc32($version);
         }
+
         return $version;
+    }
+
+    /**
+     * @param $components
+     *
+     * @author Matias Hidalgo <matias.hidalgo@redboxdigital.com>
+     * @return string
+     */
+    public function buildUrl($components)
+    {
+        $url = $components['scheme'] . '://';
+
+        if (! empty($components['username']) && ! empty($components['password'])) {
+            $url .= $components['username'] . ':' . $components['password'] . '@';
+        }
+
+        $url .= $components['host'];
+
+        if (! empty($components['port']) &&
+            (($components['scheme'] === 'http' && $components['port'] !== 80) ||
+                ($components['scheme'] === 'https' && $components['port'] !== 443))
+        ) {
+            $url .= ':' . $components['port'];
+        }
+
+        if (! empty($components['path'])) {
+            $url .= $components['path'];
+        }
+
+        if (! empty($components['fragment'])) {
+            $url .= '#' . $components['fragment'];
+        }
+
+        if (! empty($components['query'])) {
+            $url .= '?' . implode('&', array_filter($components['query']));
+        }
+
+        return $url;
     }
 }

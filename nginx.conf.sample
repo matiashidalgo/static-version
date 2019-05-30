@@ -22,6 +22,15 @@ You must add this to your nginx server setup:
         add_header X-Frame-Options "SAMEORIGIN";
     }
 
+If you have an specific setup where your static content is on a separate domain and the path
+is on the root like the following link:
+
+http://media.mydomain.com/
+
+Then you have to add to your subdomain Nginx configuration the following:
+    location ~ ^/version {
+        rewrite ^/(version\d*/)?(.*)$ /$2 last;
+    }
 
 Full Example:
 server {
@@ -51,6 +60,21 @@ server {
             rewrite ^/skin/(version\d*/)?(.*)$ /skin/$2 last;
         }
         add_header X-Frame-Options "SAMEORIGIN";
+    }
+
+    ...
+}
+
+For Subdomain static content sites:
+server {
+    listen 80;
+    server_name media.magentoinstance.com;
+    root /path/to/your/magento/instance/media;
+
+    ...
+
+    location ~ ^/version {
+        rewrite ^/(version\d*/)?(.*)$ /$2 last;
     }
 
     ...
